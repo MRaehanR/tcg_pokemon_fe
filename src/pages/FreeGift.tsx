@@ -76,6 +76,7 @@ function FreeGift(){
             className='button-pokeball'
             onClick={handleButtonPokeball}
           >
+            Claim
             <img className='pokeball' src="/pokeball.png" alt="Game Title" />
             100
           </Button>
