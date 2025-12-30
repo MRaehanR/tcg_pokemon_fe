@@ -2,8 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Authentication.css';
 import { Button } from 'pixel-retroui';
+import { playSound, SOUNDS } from '../utils/sound';
 
 function Authentication() {
+  const handleButtonClick = () => {
+    playSound(SOUNDS.CLICK, 1);
+  };
+
   return (
     <div className='auth-container'>
       <img className='game-title' src="/game_title.png" alt="Game Title" />
@@ -13,6 +18,8 @@ function Authentication() {
           textColor="black"
           borderColor="black"
           shadow="#c381b5"
+          className='button'
+          onClick={handleButtonClick}
         >
           Login
         </Button>
@@ -23,7 +30,8 @@ function Authentication() {
           textColor="black"
           borderColor="black"
           shadow="#c381b5"
-          className=''
+          className='button'
+          onClick={handleButtonClick}
         >
           Register
         </Button>
