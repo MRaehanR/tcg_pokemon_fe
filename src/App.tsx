@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Layout from './components/Layout';
+import ProtectedRoute from './components/ProtectedRoute';
 import Authentication from './pages/Authentication';
 import { playBackgroundMusic, stopBackgroundMusic } from './utils/sound';
 import Login from './pages/Login';
@@ -36,12 +37,12 @@ function App() {
           <Route path="/" element={<Authentication />} />
           <Route path="/login" element={<Login />} />         
           <Route path="/register" element={<Register />} />     
-          <Route path="/menu" element={<Menu />} />     
-          <Route path="/free_gift" element={<FreeGift />} />     
-          <Route path="/sell" element={<Sell />} />     
-          <Route path="/set-price" element={<SetPrice />} />  
-          <Route path="/profile" element={<Profile />} />      
-          <Route path="/market" element={<Beli />} />       
+          <Route path="/menu" element={<ProtectedRoute><Menu /></ProtectedRoute>} />     
+          <Route path="/free_gift" element={<ProtectedRoute><FreeGift /></ProtectedRoute>} />     
+          <Route path="/sell" element={<ProtectedRoute><Sell /></ProtectedRoute>} />     
+          <Route path="/set-price" element={<ProtectedRoute><SetPrice /></ProtectedRoute>} />  
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />      
+          <Route path="/market" element={<ProtectedRoute><Beli /></ProtectedRoute>} />       
         </Route>
       </Routes>
     </BrowserRouter>

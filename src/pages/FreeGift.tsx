@@ -115,7 +115,7 @@ function FreeGift(){
             borderColor="black"
           >
             YEY KAMU MENDAPATKAN KARTU
-            <Card name={isCardData?.name} image={"http://127.0.0.1:5000"+isCardData?.image_path}/>
+            <Card name={isCardData?.name} image={"http://127.0.0.1:5000"+isCardData?.image_path} stars={isCardData?.star} />
           </Popup>
           <img className='game-title' src="/game_title.png" alt="Game Title" />
           <Button
