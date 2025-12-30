@@ -42,4 +42,5 @@ export const SOUNDS = {
   // Tambahkan sound lainnya di sini
   // HOVER: '/sounds/hover.mp3',
   SUCCESS: '/sounds/success.mp3',
+  MENU: '/sounds/Menu.mp3',
 };
