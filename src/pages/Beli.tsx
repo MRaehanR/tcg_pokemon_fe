@@ -23,8 +23,14 @@ const Beli: React.FC = () => {
   
   // Get user from localStorage
   const getUserFromLocalStorage = () => {
-    const userStr = localStorage.getItem('user');
-    return userStr ? JSON.parse(userStr) : null;
+    try {
+      const userStr = localStorage.getItem('user');
+      if (!userStr || userStr === 'undefined') return null;
+      return JSON.parse(userStr);
+    } catch (error) {
+      console.error('Error parsing user from localStorage:', error);
+      return null;
+    }
   };
   
   const [user, setUser] = useState<any>(getUserFromLocalStorage());
