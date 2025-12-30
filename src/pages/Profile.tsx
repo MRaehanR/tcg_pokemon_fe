@@ -1,51 +1,82 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
-
 import './Profile.css';
-import { Link } from 'react-router-dom';
+
+interface UserData {
+  username: string;
+  gold: number;
+}
+
+interface UserCard {
+  card_user_id: number;
+  card_name: string;
+  image: string;
+  stars:number;
+  is_in_market: boolean;
+}
 
 const Profile: React.FC = () => {
-  // Dummy data
-  const myCards = [
-    { id: 1, name: "Flareon", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/136.png" },
-    { id: 2, name: "Gastly", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/92.png" },
-    { id: 3, name: "Jigglypuff", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png" },
-    { id: 4, name: "Flareon", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/136.png" },
-    { id: 5, name: "Gastly", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/92.png" },
-    { id: 6, name: "Jigglypuff", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png" },
-    { id: 7, name: "Flareon", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/136.png" },
-    { id: 8, name: "Gastly", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/92.png" },
-    { id: 9, name: "Jigglypuff", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png" },
-    { id: 10, name: "Flareon", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/136.png" },
-    { id: 11, name: "Gastly", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/92.png" },
-    { id: 12, name: "Jigglypuff", image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png" },
-    
-  ];
+  const [userCards, setUserCards] = useState<UserCard[]>([]);
+  const [userData, setUserData] = useState<UserData | null>(null); 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("access_token");
+        const response = await fetch('http://127.0.0.1:5000/api/v1/profile/get', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        });
+
+        const result = await response.json();
+        
+        setUserCards(result.data.cards || []);
+        setUserData(result.data.user);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  if (isLoading) return <div className="loading-text">Memuat Profile...</div>;
 
   return (
     <div className="profile-page-container">
       <div className="status-header">
         <div className="status-main-box">
           <div className="status-row">
-            <span className="pkm-name">CHARMANDER</span>
+            <span className="pkm-name">{userData?.username.toUpperCase()}</span>
           </div>
           <div className="status-row" style={{ marginTop: '10px' }}>
             <div className="id-group">
               <img src="pokeball.png" alt="ball" />
-              <span>1250</span>
+              <span>{userData?.gold || 0}</span>
             </div>
-            <span className="pkm-lv">Lv5</span>
+            <span className="pkm-lv">CARDS: {userCards.length}</span>
           </div>
         </div>
       </div>
+
       <div className="card-grid">
-        {myCards.map((card) => (
-          <Link to="/" key={card.id} style={{ textDecoration: 'none' }}>
+        {userCards.map((card) => (
+          <div key={card.card_user_id} className="relative">
             <Card 
-              name={card.name} 
-              image={card.image} 
+              name={card.card_name} 
+              image={`http://127.0.0.1:5000/${card.image}`} 
+              stars={card.stars}
             />
-          </Link>
+            {card.is_in_market && (
+              <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded border-2 border-black">
+                ON MARKET
+              </div>
+            )}
+          </div>
         ))}
       </div>
     </div>

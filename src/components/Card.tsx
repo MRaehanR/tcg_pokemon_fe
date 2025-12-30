@@ -4,13 +4,20 @@ import './Card.css';
 interface CardProps {
    name: string;
    image: string;
+   stars: number; 
 }
 
-const Card: React.FC<CardProps> = ({ name, image }) => {
+const Card: React.FC<CardProps> = ({ name, image, stars }) => {
    return (
       <div className="pokemon-card">
          <div className="image-box">
-         <img src={image} alt={name} className="pixel-art" />
+            <div className="stars-container">
+               {[...Array(stars)].map((_, index) => (
+                  <span key={index} className="star-icon">★</span>
+               ))}
+            </div>
+            
+            <img src={image} alt={name} className="pixel-art" />
          </div>
 
          <div className="info-box">
