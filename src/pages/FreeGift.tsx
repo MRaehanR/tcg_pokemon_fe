@@ -94,6 +94,19 @@ function FreeGift(){
 
     return (
         <div className='auth-container'>
+          <div className="back-button-container">
+            <Link to="/menu">
+              <Button
+                bg="#fefcd0"
+                textColor="black"
+                borderColor="black"
+                shadow="#c381b5"
+                onClick={() => playSound(SOUNDS.CLICK, 1)}
+              >
+                KEMBALI
+              </Button>
+            </Link>
+          </div>
            <Popup
             isOpen={isPopUpClaimPokeballOpen}
             onClose={popUpClaimPokeballOnClose}
@@ -127,7 +140,7 @@ function FreeGift(){
             onClick={handleButtonPokeball}
           >
             Claim
-            <img className='pokeball' src="/pokeball.png" alt="Game Title" />
+            <img className='pokeball-claim' src="/pokeball.png" alt="Game Title" />
             100
           </Button>
           <Button

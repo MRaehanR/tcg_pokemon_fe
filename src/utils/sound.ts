@@ -43,4 +43,5 @@ export const SOUNDS = {
   // HOVER: '/sounds/hover.mp3',
   SUCCESS: '/sounds/success.mp3',
   MENU: '/sounds/Menu.mp3',
+  BELI: '/sounds/Buy.mp3',
 };

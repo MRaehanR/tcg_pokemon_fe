@@ -5,6 +5,14 @@
     justify-content: center;
     gap: 20px;
     padding: 40px;
+    position: relative;
+  }
+
+  .back-button-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
   }
   
   .game-title {

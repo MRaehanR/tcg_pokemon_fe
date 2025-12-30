@@ -4,6 +4,7 @@ import './Beli.css';
 import { Link } from 'react-router-dom';
 import { Card, Popup } from 'pixel-retroui';
 import { Button } from 'pixel-retroui';
+import { playSound, SOUNDS } from '../utils/sound';
 
 interface UserCard {
   card_user_id: number;
@@ -194,6 +195,7 @@ const Beli: React.FC = () => {
   };
 
   const closePopup = () => {
+    playSound(SOUNDS.CLICK, 1)
     setIsPopupOpen(false);
   }
 
@@ -203,14 +205,17 @@ const Beli: React.FC = () => {
 
     if (!isFromMarket && selectedCard) {
       cancelSellCard(selectedCard.market_id);
+      playSound(SOUNDS.MENU, 1)
       closePopup();
     } else {
       buyCard(selectedCard!.market_id);
+      playSound(SOUNDS.BELI, 1);
       closePopup();
     }
   }
 
   const openPopup = (isFromMarket: boolean, data: UserCard): void => {
+    playSound(SOUNDS.CLICK, 1);
     setIsFromMarket(isFromMarket);
     setIsPopupOpen(true);
     setSelectedCard(data);
@@ -222,6 +227,17 @@ const Beli: React.FC = () => {
   
   return (
     <div className="beli-page-container">
+      <Link to="/menu">
+        <Button
+          bg="#fefcd0"
+          textColor="black"
+          borderColor="black"
+          shadow="#c381b5"
+          onClick={() => playSound(SOUNDS.CLICK, 1)}
+        >
+          KEMBALI
+        </Button>
+      </Link>
       <Popup
         isOpen={isPopupOpen}
         onClose={closePopup}
@@ -281,6 +297,7 @@ const Beli: React.FC = () => {
             borderColor="black"
             shadow="#c381b5"
             className='button-jual'
+            onClick={() => playSound(SOUNDS.CLICK, 1)}
             >
             JUAL KARTU
           </Button>

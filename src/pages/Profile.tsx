@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import './Profile.css';
+import { Link } from 'react-router-dom';
+import { Button } from 'pixel-retroui';
+import { playSound, SOUNDS } from '../utils/sound';
 
 interface UserData {
   username: string;
@@ -48,6 +51,17 @@ const Profile: React.FC = () => {
 
   return (
     <div className="profile-page-container">
+        <Link to="/menu">
+          <Button
+            bg="#fefcd0"
+            textColor="black"
+            borderColor="black"
+            shadow="#c381b5"
+            onClick={() => playSound(SOUNDS.CLICK, 1)}
+          >
+            KEMBALI
+          </Button>
+        </Link>
       <div className="status-header">
         <div className="status-main-box">
           <div className="status-row">
