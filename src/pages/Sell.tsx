@@ -21,7 +21,7 @@ const Sell: React.FC = () => {
       try {
         const token = localStorage.getItem("access_token");
         
-        const response = await fetch('http://127.0.0.1:5000/api/v1/profile/get', {
+        const response = await fetch('http://127.0.0.1:5000/api/v1/profile/get?sell=true', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
