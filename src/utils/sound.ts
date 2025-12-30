@@ -41,5 +41,5 @@ export const SOUNDS = {
   CLICK: '/sounds/click.mp3',
   // Tambahkan sound lainnya di sini
   // HOVER: '/sounds/hover.mp3',
-  // SUCCESS: '/sounds/success.mp3',
+  SUCCESS: '/sounds/success.mp3',
 };
