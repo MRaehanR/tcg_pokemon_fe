@@ -48,6 +48,7 @@ function Register() {
 
       console.log("Register successful:", responseResult);
       localStorage.setItem("access_token", responseResult.data.access_token);
+      localStorage.setItem("user", JSON.stringify(responseResult.data.user));
 
       playSound(SOUNDS.SUCCESS, 1);
       alert("Register successful!");

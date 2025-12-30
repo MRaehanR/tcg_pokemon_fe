@@ -20,7 +20,14 @@ const Beli: React.FC = () => {
   const [cardsMarket, setCardsMarket] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCard, setSelectedCard] = useState<UserCard | null>(null);
-  const [user, setUser] = useState<Array<any>>([]);
+  
+  // Get user from localStorage
+  const getUserFromLocalStorage = () => {
+    const userStr = localStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
+  };
+  
+  const [user, setUser] = useState<any>(getUserFromLocalStorage());
       
   const fetchUserCards = async () => {
     try {
@@ -55,6 +62,7 @@ const Beli: React.FC = () => {
 
       if (result && result.data.user) {
         console.log("User data:", result.data.user);
+        localStorage.setItem("user", JSON.stringify(result.data.user));
         setUser(result.data.user);
       }
 
@@ -90,7 +98,9 @@ const Beli: React.FC = () => {
       
       if (result && result.data.market) {
         console.log("Market data:", result.data.market);
-        setCardsMarket(result.data.market);
+        console.log("User data for filtering:", user);
+        const filteredCards = result.data.market.filter((card: any) => card.seller_id !== user?.id);
+        setCardsMarket(filteredCards);
       } else {
         console.warn("Data 'cards' tidak ditemukan dalam response:", result);
         setCardsMarket([]); 
@@ -104,9 +114,11 @@ const Beli: React.FC = () => {
     }
   };
   useEffect(() => {
-
-    fetchMarketCards();
-    fetchUserCards();
+    const fetchData = async () => {
+      await fetchUserCards();
+      fetchMarketCards();
+    };
+    fetchData();
   }, []);
 
   const cancelSellCard = async (market_id: number) => {
