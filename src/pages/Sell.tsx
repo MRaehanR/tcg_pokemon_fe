@@ -3,6 +3,8 @@ import Card from '../components/Card';
 import './Sell.css';
 import { Link } from 'react-router-dom';
 import { Button } from 'pixel-retroui';
+import { playSound, SOUNDS } from '../utils/sound';
+
 
 interface UserCard {
   card_user_id: number;
@@ -13,6 +15,11 @@ interface UserCard {
 }
 
 const Sell: React.FC = () => {
+  const handleButtonClick = () => {
+    playSound(SOUNDS.MENU, 1);
+  };
+
+
   const [userCards, setUserCards] = useState<UserCard[]>([]);
   const [isLoading, setIsLoading] = useState(true);
     
@@ -68,6 +75,7 @@ const Sell: React.FC = () => {
             textColor="black"
             borderColor="black"
             shadow="#c381b5"
+            onClick={handleButtonClick}
           >
             KEMBALI
           </Button>

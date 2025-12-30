@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import './SetPrice.css';
 import { Button, Card, Input } from 'pixel-retroui';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { playSound, SOUNDS } from '../utils/sound';
 
 function SetPrice() {
+  const handleButtonClick = () => {
+    playSound(SOUNDS.MENU, 1);
+  };
+
   const location = useLocation();
   const navigate = useNavigate();
   const cardInfo = location.state?.cardInfo; 
@@ -11,6 +16,7 @@ function SetPrice() {
   const [price, setPrice] = useState<number | string>("");
 
   const sellCard = async () => {
+    handleButtonClick()
     if (!price || Number(price) <= 0) {
       alert("Masukkan harga yang valid!");
       return;
@@ -116,7 +122,7 @@ function SetPrice() {
 
       <div className="set-price-button flex gap-4 mt-4">
         <Link to="/sell">
-          <Button bg="#fefcd0" textColor="black" borderColor="black" shadow="#c381b5" className="button">
+          <Button bg="#fefcd0" textColor="black" borderColor="black" shadow="#c381b5" className="button" onClick={handleButtonClick}>
             BATAL
           </Button>
         </Link>
