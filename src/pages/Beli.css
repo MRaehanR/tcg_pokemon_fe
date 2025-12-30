@@ -119,3 +119,13 @@
   box-sizing: border-box;
   margin-bottom: 8px;
 }
+
+.button-popup {
+  margin-top: 30px;
+}
+
+.item-icon-popup {
+  display: inline-block;
+  height: 25px;
+  object-fit: contain;
+}

@@ -11,6 +11,7 @@ import FreeGift from './pages/FreeGift';
 import Sell from './pages/Sell';
 import SetPrice from './pages/SetPrice';
 import Profile from './pages/Profile';
+import Beli from './pages/Beli';
 
 function App() {
   useEffect(() => {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/sell" element={<Sell />} />     
           <Route path="/set-price" element={<SetPrice />} />  
           <Route path="/profile" element={<Profile />} />      
+          <Route path="/market" element={<Beli />} />       
         </Route>
       </Routes>
     </BrowserRouter>

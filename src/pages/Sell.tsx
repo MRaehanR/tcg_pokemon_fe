@@ -40,6 +40,7 @@ const Sell: React.FC = () => {
         const result = await response.json();
         
         if (result && result.data.cards) {
+          console.log("User cards data sell:", result.data.cards);
           setUserCards(result.data.cards);
         } else {
           console.warn("Data 'cards' tidak ditemukan dalam response:", result);
