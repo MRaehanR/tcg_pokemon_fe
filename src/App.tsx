@@ -6,6 +6,7 @@ import Authentication from './pages/Authentication';
 import { playBackgroundMusic, stopBackgroundMusic } from './utils/sound';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Menu from './pages/Menu';
 
 function App() {
   useEffect(() => {
@@ -29,7 +30,8 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Authentication />} />
           <Route path="/login" element={<Login />} />         
-          <Route path="/register" element={<Register />} />          
+          <Route path="/register" element={<Register />} />     
+          <Route path="/menu" element={<Menu />} />          
         </Route>
       </Routes>
     </BrowserRouter>

@@ -52,7 +52,7 @@ function Register() {
       playSound(SOUNDS.SUCCESS, 1);
       alert("Register successful!");
 
-      navigate("/home");
+      navigate("/menu");
     } catch (error) {
       console.error("Error:", error);
     }

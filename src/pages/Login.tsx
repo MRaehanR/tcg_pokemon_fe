@@ -52,7 +52,7 @@ function Login() {
       playSound(SOUNDS.SUCCESS, 1);
       alert("Login successful!");
 
-      navigate("/home");
+      navigate("/menu");
     } catch (error) {
       console.error("Error:", error);
     }
