@@ -85,6 +85,7 @@ const Sell: React.FC = () => {
             <Card 
               name={card.card_name} 
               image={`http://127.0.0.1:5000/${card.image}`} 
+              stars={card.stars}
             />
           </Link>
         ))}
