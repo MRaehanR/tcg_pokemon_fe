@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Menu from './pages/Menu';
 import FreeGift from './pages/FreeGift';
+import Sell from './pages/Sell';
+import SetPrice from './pages/SetPrice';
 
 function App() {
   useEffect(() => {
@@ -33,7 +35,9 @@ function App() {
           <Route path="/login" element={<Login />} />         
           <Route path="/register" element={<Register />} />     
           <Route path="/menu" element={<Menu />} />     
-          <Route path="/free_gift" element={<FreeGift />} />          
+          <Route path="/free_gift" element={<FreeGift />} />     
+          <Route path="/sell" element={<Sell />} />     
+          <Route path="/set-price" element={<SetPrice />} />        
         </Route>
       </Routes>
     </BrowserRouter>
