@@ -1,0 +1,121 @@
+.beli-page-container {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  column-gap: 10px;
+  row-gap: 30px;
+  width: 100%;
+  max-width: calc(6 * 280px + 5 * 20px);
+  justify-content: center;
+}
+
+.card-wrapper {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; 
+  column-gap: 100px;
+  row-gap: 10px;
+}
+
+.cancel-link {
+  width: 100%;
+}
+
+.button-cancel {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+
+.pokeball {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.item-icon {
+  height: 48px;
+  object-fit: contain;
+}
+
+.item-quantity {
+  font-size: 30px;
+  font-weight: bold;
+  max-width: 300px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pokeball-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 80px;
+}
+
+.jual{
+  display: flex;
+  justify-content: left;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.button-jual {
+  width: 100%;
+  height: 50px;
+  font-size: 25px;
+}
+
+.market{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.logo-market{
+  margin-top: 100px;
+  width: 553px;
+  height: 173px;
+}
+
+.card-grid-market {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  column-gap: 10px;
+  row-gap: 30px;
+  width: 100%;
+  max-width: calc(6 * 280px + 5 * 20px);
+  justify-content: center;
+}
+
+.card-wrapper-market {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; 
+  column-gap: 100px;
+  row-gap: 10px;
+}
+
+.konfirmasi-link {
+  width: 100%;
+}
+
+.button-konfirmasi {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
