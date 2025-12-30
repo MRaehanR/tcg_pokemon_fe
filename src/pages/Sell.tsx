@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Card from '../components/Card'; // Pastikan path komponen benar
+import Card from '../components/Card';
 import './Sell.css';
 import { Link } from 'react-router-dom';
 import { Button } from 'pixel-retroui';
@@ -20,27 +20,36 @@ const Sell: React.FC = () => {
     const fetchCards = async () => {
       try {
         const token = localStorage.getItem("access_token");
-
-        console.log("token: ",token)
         
-        const response = await fetch('http://127.0.0.1:5000/api/v1/profile', {
+        const response = await fetch('http://127.0.0.1:5000/api/v1/profile/get', {
           method: 'GET',
-          // mode: 'no-cors',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
           }
         });
 
-        if (response.status === 301 || response.status === 302) {
-          console.error("Server melakukan redirect. Cek endpoint URL di Flask!");
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Server Error:", errorData.message);
+          setUserCards([]); 
+          setIsLoading(false);
+          return;
         }
 
         const result = await response.json();
-        setUserCards(result.cards);
+        
+        if (result && result.data.cards) {
+          setUserCards(result.data.cards);
+        } else {
+          console.warn("Data 'cards' tidak ditemukan dalam response:", result);
+          setUserCards([]); 
+        }
+
         setIsLoading(false);
       } catch (error) {
-        console.error("CORS atau Network Error:", error);
+        console.error("Network Error:", error);
+        setUserCards([]); 
         setIsLoading(false);
       }
     };
@@ -53,7 +62,7 @@ const Sell: React.FC = () => {
   return (
     <div className="sell-page-container">
       <div className="sell-page-header">
-        <Link to="/menu">
+        <Link to="/market">
           <Button
             bg="#fefcd0"
             textColor="black"

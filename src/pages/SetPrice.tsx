@@ -1,20 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SetPrice.css';
-import { Button } from 'pixel-retroui';
-import { Card } from 'pixel-retroui';
-import { Input } from 'pixel-retroui';
-import { Link } from 'react-router-dom';
-
-
+import { Button, Card, Input } from 'pixel-retroui';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function SetPrice() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const cardInfo = location.state?.cardInfo; 
 
-  const sellCard = () => {
+  const [price, setPrice] = useState<number | string>("");
 
+  const sellCard = async () => {
+    if (!price || Number(price) <= 0) {
+      alert("Masukkan harga yang valid!");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("access_token");
+      const response = await fetch('http://127.0.0.1:5000/api/v1/sell/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          card_id: cardInfo?.card_user_id, 
+          price: Number(price)
+        }),
+      });
+
+      if (response.ok) {
+        alert("Kartu berhasil dipasang untuk dijual!");
+        navigate('/sell');
+      } else {
+        const error = await response.json();
+        alert("Gagal menjual: " + error.message);
+      }
+    } catch (error) {
+      console.error("Error selling card:", error);
+    }
   };
+
+  if (!cardInfo) {
+    return (
+      <div className='set-price-container'>
+        <p>Silakan pilih kartu terlebih dahulu.</p>
+        <Link to="/sell"><Button bg="#fefcd0">Kembali</Button></Link>
+      </div>
+    );
+  }
 
   return (
     <div className='set-price-container'>
+      <p className="mb-2 font-bold">Menjual: {cardInfo.card_name}</p>
+      
       <Card
         bg="#fefcd0"
         textColor="black"
@@ -31,9 +71,7 @@ function SetPrice() {
         className="p-8" 
       >
         <div className="!flex !flex-col items-center justify-center w-full">
-          <h2 className="text-2xl font-bold mb-4 text-center">
-            HARGA :
-          </h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">HARGA :</h2>
   
           <div className="w-full flex justify-center">
             <div 
@@ -52,7 +90,6 @@ function SetPrice() {
                 alt="pokeball" 
                 style={{ width: '25px', height: '25px', marginRight: '10px' }}
               />
-              
               <span style={{ fontWeight: 'bold', marginRight: '5px' }}>:</span>
 
               <Input
@@ -62,6 +99,8 @@ function SetPrice() {
                 placeholder="999"
                 type="number" 
                 min={1}
+                value={price}
+                onChange={(e) => setPrice(e.target.value)} 
                 style={{ 
                   width: '100%', 
                   border: 'none', 
@@ -74,15 +113,10 @@ function SetPrice() {
           </div>
         </div>
       </Card>
-      <div className="set-price-button">
+
+      <div className="set-price-button flex gap-4 mt-4">
         <Link to="/sell">
-          <Button
-            bg="#fefcd0"
-            textColor="black"
-            borderColor="black"
-            shadow="#c381b5"
-            className="button"
-          >
+          <Button bg="#fefcd0" textColor="black" borderColor="black" shadow="#c381b5" className="button">
             BATAL
           </Button>
         </Link>
